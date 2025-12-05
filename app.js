@@ -1,21 +1,20 @@
-const subjects = ["English", "Math", "Physics", "Chemistry", "Computer"];
-let marks = [];
-let total = 0;
+const subjectsList = ["English", "Math", "Physics", "Chemistry", "Computer"];
+let studentScores = [];
+let totalMarks = 0;
 
-for(let i = 0; i < subjects.length; i++) {
-    let mark = +prompt(`Enter marks for ${subjects[i]} (out of 100):`);
-    mark = (isNaN(mark) || mark < 0 || mark > 100) ? 0 : mark;
-    if(mark === 0) alert(`Invalid input for ${subjects[i]}. Setting marks to 0.`);
-    marks.push(mark);
-    total += mark;
+for (let i = 0; i < subjectsList.length; i++) {
+    let score = +prompt(`Please input marks obtained in ${subjectsList[i]} (max 100):`);
+    score = (isNaN(score) || score < 0 || score > 100) ? 0 : score;
+    if(score === 0) alert(`Invalid input for ${subjectsList[i]}. Marks set to 0.`);
+    studentScores.push(score);
+    totalMarks += score;
 }
 
-let percentage = (total / (subjects.length * 100)) * 100;
+let percentage = (totalMarks / (subjectsList.length * 100)) * 100;
 
-function formatPercent(p) {
+function formatPercentage(p) {
     return Math.round(p) + "%";
 }
-
 
 let grade = 
     percentage >= 90 && percentage <= 100 ? "A+" :
@@ -26,9 +25,30 @@ let grade =
     percentage >= 0 && percentage < 50 ? "Fail" :
     "Invalid Value";
 
-for(let i = 0; i < subjects.length; i++) {
-    document.write(`<p>${subjects[i]}: ${marks[i]}</p>`);
-}
-document.write(`<p><b>Total Marks: ${total}</b></p>`);
-document.write(`<p><b>Percentage: ${formatPercent(percentage)}</b></p>`);
-document.write(`<p><b>Grade: ${grade}</b></p>`);
+
+let gradeColor =
+    grade === "A+" || grade === "A" ? "green" :
+    grade === "B" || grade === "C" ? "orange" :
+    grade === "D" ? "blue" :
+    grade === "Fail" ? "red" :
+    "black";
+
+
+let outputHTML = `<div>
+    <table>
+        <tr>
+            <th>Subject</th>
+            <th>Marks</th>
+        </tr>
+        ${subjectsList.map((sub, i) => `
+        <tr>
+            <td>${sub}</td>
+            <td>${studentScores[i]}</td>
+        </tr>`).join('')}
+    </table>
+    <p class="total">Total Marks: ${totalMarks}</p>
+    <p class="percentage">Percentage: ${formatPercentage(percentage)}</p>
+    <p class="grade" style="color:${gradeColor};">Grade: ${grade}</p>
+</div>`;
+
+document.getElementById("marksheet-output").innerHTML = outputHTML;
