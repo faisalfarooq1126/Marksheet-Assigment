@@ -13,10 +13,9 @@ for(let i = 0; i < subjects.length; i++) {
 let percentage = (total / (subjects.length * 100)) * 100;
 
 function formatPercent(p) {
-    let s = p.toFixed(2);
-    s = s.replace(/\.?0+$/, "");
-    return s + "%";
+    return Math.round(p) + "%";
 }
+
 
 let grade = 
     percentage >= 90 && percentage <= 100 ? "A+" :
