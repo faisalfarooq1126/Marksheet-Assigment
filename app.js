@@ -22,7 +22,7 @@ let grade =
     percentage >= 70 && percentage < 80 ? "B" :
     percentage >= 60 && percentage < 70 ? "C" :
     percentage >= 50 && percentage < 60 ? "D" :
-    percentage >= 0 && percentage < 50 ? "Fail" :
+    percentage >= 40 && percentage < 50 ? "Fail" :
     "Invalid Value";
 
 
